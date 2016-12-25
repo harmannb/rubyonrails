@@ -1,0 +1,13 @@
+<form action="/users/<%= @user.id %>" method="post">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+  <input type="hidden" name="_method" value="patch">
+  First Name:<input type="text" name="user[first_name]" value="<%= @user.first_name %>">
+  Last Name:<input type="text" name="user[last_name]" value="<%= @user.last_name %>">
+  Email:<input type="text" name="user[email]" value="<%= @user.email %>">
+  Password:<input type="text" name="user[password]" value="<%= @user.password %>">
+  <input type="submit" name="update" value="Update">
+</form>
+
+<a href="/users">Back</a>
+
+<%= flash[:errors] %>

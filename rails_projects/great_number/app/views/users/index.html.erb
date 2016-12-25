@@ -1,0 +1,28 @@
+
+
+<h3>Welcome to the Great Number Game</h3>
+
+<p>I am think of a number between 1 to 100</p>
+
+<h1><% session[:random] %></h1>
+
+<h1><%= flash[:message] %> </h1>
+
+<p>Take a guess!</p>
+
+<form action="/users/guess" method="post">
+
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+<div>
+  <input type='text' name='number'/>
+</div>
+
+<div>
+  <input type='submit' value='Submit' />
+</div>
+
+</form>
+
+
+

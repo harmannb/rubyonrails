@@ -1,0 +1,40 @@
+
+
+<form action='/result' method='post'>
+
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+  <div>
+  Your Name:
+  <input type='text' name='name'/>
+  </div>
+
+
+  <div>
+  Dojo Location:
+  <select name=location>
+    <option>San Jose</option>
+    <option>Seattle</option>
+    <option>New York</option>
+  </select>
+  </div>
+
+  <div>
+  Favorite Language:
+  <select name=language>
+    <option>Python</option>
+    <option>Ruby on Rails</option>
+    <option>HTML/CSS</option>
+  </select>
+  </div>
+
+  <div>
+  Comment(optional):
+  <textarea name=comment></textarea>
+  </div>
+
+  <input type='submit' value='Submit' />
+
+</form>
+
+

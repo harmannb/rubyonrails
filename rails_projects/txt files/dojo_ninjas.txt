@@ -1,0 +1,43 @@
+rails new dojo_ninjas
+rails g model Dojo city:string name:string state:string
+rails g model Ninja dojo:references last_name:string first_name:string
+rake db:migrate
+rake db:migrate:status
+rails c
+Dojo.all
+Hirb.enable
+Dojo.all
+Dojo.new
+
+dojo = Dojo.create(city: "", name:"")
+dojo.valid?
+ca = Dojo.new(city: "Mountain View", state: "CA", name: "CodingDojo Silicon Valley")
+ca.save
+Dojo.all
+
+ca.valid?
+dojo.valid?
+dojo.errors.full_messages
+
+ny = Dojo.create(city: "New York", name: "CodingDojo New York", state: "NY")
+wa = Dojo.create(city: "Seattle", name: "CodingDojo Seattle", state: "WA")
+
+Dojo.find(1).destroy
+
+
+ninja1 = dojo.ninjas.create(first_name: 'Harmann', last_name: 'Bajwa')
+ninja1 = dojo.ninjas.create(first_name: 'Harry', last_name: 'Potter')
+ninja1 = dojo.ninjas.create(first_name: 'Lord', last_name: 'Disick')
+Ninja.all
+
+
+ninja2 = dojo.ninjas.create(first_name: 'Mickey', last_name: 'Mouse')
+ninja2 = dojo.ninjas.create(first_name: 'Minnie', last_name: 'Mouse')
+ninja2 = dojo.ninjas.create(first_name: 'Mad', last_name: 'Hatter')
+Dojo.all
+
+ninja2 = ca.ninjas.create(first_name: 'Mad', last_name: 'Hatter')
+
+Ninja.find(1).destroy
+Ninja.find(2).destroy
+Ninja.find(3).destroy

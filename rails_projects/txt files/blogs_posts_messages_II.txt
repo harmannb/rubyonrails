@@ -1,0 +1,158 @@
+rails new blogs_posts_messages_II
+touch blogs_posts_messages_II.txt
+cd blogs_posts_messages_II
+
+rails g model User first_name:string last_name:string email_address:string
+rails g model Posts user:references blog:references title:string content:string
+rails g model Messages post:references user:references author:string message:string
+rails g model Blogs name:string description:string
+rails g model Owners blog:references user:references 
+
+rake db:migrate
+rake db:migrate:status
+
+rails c
+Herb.enable
+
+User.new
+Posts.new
+Blogs.new
+Messages.new
+Owners.new
+
+
+#create 5 users
+
+homer = User.create(first_name: "Homer", last_name: "Simpson", email_address: "homer.simpson@simpsons.com")
+
+bart = User.create(first_name: "Bart", last_name: "Simpson", email_address: "bart.simpson@simpsons.com")
+
+lisa = User.create(first_name:"Lisa", last_name:"Simpson", email_address:"lisa.simpson@simpsons.com")
+
+marge = User.create(first_name: "Marge", last_name: "Simpson", email_address:"marge.simpson@simpsons.com")
+
+burns = User.create(first_name: "Mr.", last_name: "Burns", email_address:"mr.burns@simpsons.com")
+
+User.all
+
+#create 5 blogs
+
+blog1 = Blog.create(name: "Game of Thrones", description: "Spoilers")
+
+blog1 = Blogs.create(name: "Parks & Rec", description: "Spoilers")
+
+blog1 = Blogs.create(name: "It's Always Sunny in Philadelphia", description: "Spoilers")
+
+blog1 = Blogs.create(name: "Seinfeld", description: "Spoilers")
+
+blog1 = Blogs.create(name: "South Park", description: "Spoilers")
+
+Blogs.all
+
+
+#Have the 6th blog you create be owned by the second user
+
+blogs = Blogs.create(id: User.find(2), name: "Family Guy", description: "Spoilers")
+
+#Have the 5th blog you create be owned by the last user
+
+blogs = Blogs.create(id: User.last, name: "Futureroma", description: "Spoilers")
+
+#Have the first 3 blogs be owned by the first user
+
+owner = Owners.new(user_id: "1", blog_id: “1”)
+owner.save
+
+owner = Owners.create(user_id: User.find(3), blog_id: Blogs.find(4))
+
+owner = Owners.new(user_id: "1", blog_id: “2”)
+owner.save
+
+owner = Owners.create(user_id: User.find(3), blog_id: Blogs.find(5))
+
+owner = Owners.new(user_id: "1", blog_id: "3")
+owner.save
+
+owner = Owners.create(user_id: User.find(3), blog_id: Blogs.find(6))
+
+
+#Have the first user create 3 posts for the blog with an id of 2
+
+post = Posts.create(user_id: User.first, blog_id: Blogs.find(2), title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.first, blog_id: Blogs.find(2), title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.first, blog_id: Blogs.find(2), title: "Episode 1", content: "Summary of Episode 1")
+
+
+#Have the second user create 5 posts for the last Blog
+
+post = Posts.create(user_id: User.second, blog_id: Blogs.find(9), title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.second, blog_id: Blogs.last, title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.second, blog_id: Blogs.last, title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.second, blog_id: Blogs.last, title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.second, blog_id: Blogs.last, title: "Episode 1", content: "Summary of Episode 1")
+
+#Have the 3rd user create several posts for different blogs.
+
+post = Posts.create(user_id: User.third, blog_id: Blogs.last, title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.third, blog_id: Blogs.find(2), title: "Episode 1", content: "Summary of Episode 1")
+
+Posts.create(user: User.third, blog: Blogs.find(10), title: "Episode 1", content: "Summary of Episode 1")
+
+post = Posts.create(user_id: User.third, blog_id: Blogs.find(10), title: "Episode 1", content: "Summary of Episode 1")
+
+#Have the 3rd user create 2 messages for the first post created and 3 messages for the second post created
+
+Message.create(user: User.third, post: Post.first, author: "Harmann", message: " hjksdahlfjkdghdjl fghjkdf")
+
+Message.create(user: User.third, post: Post.first, author: "Harmann", message: " hjksdahlfjkdghdjl fghjkdf")
+
+Message.create(user: User.third, post: Post.second, author: "Harmann", message: " hjksdahlfjkdghdjl fghjkdf")
+
+Message.create(user: User.third, post: Post.second, author: "Harmann", message: " hjksdahlfjkdghdjl fghjkdf")
+
+Message.create(user: User.third, post: Post.second, author: "Harmann", message: " hjksdahlfjkdghdjl fghjkdf")
+
+#Have the 4th user create 3 messages for the last post you created.
+
+Message.create(user: User.first, post: Post.third, author: "Stewie Griffin", message: "I agree")
+
+Message.create(user: User.first, post: Post.third, author: "Stewie Griffin", message: "I agree")
+
+Message.create(user: User.first, post: Post.third, author: "Stewie Griffin", message: "I agree")
+
+#Change the owner of the 2nd post to the last user.
+
+post = Posts.update(2, content: "Changed content")
+
+#Retrieve all blogs owned by the 3rd user (make this work by simply doing: User.find(3).blogs)
+
+User.find(3).blogs
+
+#Retrieve all posts that were created by the 3rd user
+
+User.find(3).blogs.all
+
+#Retrieve all messages left by the 3rd user
+
+User.find(3).messages.all
+
+#Retrieve all posts associated with the first blog as well as who left these posts.
+
+Blog.find(4).posts.all
+
+#Retrieve all messages associated with the first blog along with all the user information of those who left the messages.
+
+Blog.find(4).posts.joins(:user).all.select("users.first_name, posts.title, posts.id")
+
+#Grab all user information of those that own the first blog (make this work by allowing Blog.first.owners to work).
+
+Blog.first.owners
+
+Change it so that the first blog is no longer owned by the first user.

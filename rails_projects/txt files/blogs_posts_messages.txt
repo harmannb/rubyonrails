@@ -1,0 +1,125 @@
+rails new blogs_posts_messages
+touch blogs_posts_messages.txt
+cd blogs_posts_messages
+
+rails g model Blog name:string description:string
+rails g model Posts blog:references title:string content:string
+rails g model Messages post:references author:string message:string
+
+rake db:migrate
+rake db:migrate:status
+
+rails c
+Blog.all
+Hirb.enable
+Blog.all
+
+Blog.new
+Post.new
+Message.new
+
+blog1 = Blog.create(name: "Game of Thrones", description: "Spoilers")
+
+blog2 = Blog.create(name: "Parks & Rec", description: "Spoilers")
+
+blog3 = Blog.create(name: "It's Always Sunny in Philadelphia", description: "Spoilers")
+
+blog4 = Blog.create(name: "Seinfeld", description: "Spoilers")
+
+blog5 = Blog.create(name: "South Park", description: "Spoilers")
+
+Blog.all
+
+post1 = Post.create(title: "Episode 1", blog: Blog.find(1), content: "alsdkfj alskdf alkf ")
+
+post2 = Post.create(title: "Episode 1", blog: Blog.find(2), content: "Summary of Episode 1")
+
+post3 = Post.create(title: "Episode 1", blog: Blog.find(3), content: "Summary of Episode 1")
+
+post4 = Post.create(title: "Episode 1", blog: Blog.find(4), content: "Summary of Episode 1")
+
+post5 = Post.create(title: "Episode 1", blog: Blog.find(5), content: "Summary of Episode 1")
+
+Post.all
+
+message1 = Message.create(post: Post.find(1), author: "Harmann",  message: "In this episode, everyone discusses whether an avocado is a fruit or a vegetable?")
+
+message2 = Message.create(post: Post.find(2), author: "Harmann",  message: "In this episode, everyone discusses whether an avocado is a fruit or a vegetable?")
+
+message3 = Message.create(post: Post.find(3), author: "Harmann",  message: "In this episode, everyone discusses whether an avocado is a fruit or a vegetable?")
+
+message4 = Message.create(post: Post.find(4), author: "Harmann",  message: "In this episode, everyone discusses whether an avocado is a fruit or a vegetable?")
+
+message5 = Message.create(post: Post.find(5), author: "Harmann",  message: "In this episode, everyone discusses whether an avocado is a fruit or a vegetable?")
+
+Message.all
+
+post2 = Post.update(2, title: "Episode 2", blog: Blog.find(2), content: "Summary of Episode 2")
+
+post2 = Post.update(3, title: "Episode 2", blog: Blog.find(3), content: "Summary of Episode 2")
+
+post2 = Post.update(4, title: "Episode 2", blog: Blog.find(4), content: "Summary of Episode 2")
+
+post2 = Post.update(5, title: "Episode 1”, blog: Blog.find(5), content: "Summary of Episode 1”)
+
+post3 = Post.create(title: "Episode 3", blog: Blog.find(3), content: "Summary of Episode 1")
+
+post4 = Post.create(title: "Episode 4", blog: Blog.find(3), content: "Summary of Episode 4")
+
+Post.all
+
+#returns post with the id = 3
+Post.find(3)
+
+#returns blog with the id = 3
+Blog.find(3)
+
+#returns the first blog
+Blog.first
+
+#returns the first three blogs
+Blog.first(3)
+
+#returns all blogs
+blogs = Blog.includes(:posts)
+
+#returns blog with id=3
+blogs = Blog.includes(:posts).find(3)
+
+#returns posts with id=3
+posts = Post.includes(:blog).find(3)
+
+#returns all posts with the blog id = 3
+posts = Post.where(blog_id: "3")
+
+#returns all posts for the first blog
+posts = Post.where(blog_id: "1")
+
+#returns posts for the last blog (in DESC order).
+posts = Post.where(blog_id: "5").order(created_at: :desc) OR
+posts = Post.where(blog_id: "5").order("created_at DESC")
+
+
+#update post titles
+post = Post.update(12, title: "Carrots", blog: Blog.find(5), content: "Summary of Episode 2")
+
+post = Post.update(14, title: "Big Apple", blog: Blog.find(5), content: "Summary of Episode 2")
+
+post = Post.update(17, title: "Apple", blog: Blog.find(5), content: "Summary of Episode 2")
+
+post = Post.update(5, title: "Apple", blog: Blog.find(5), content: "Summary of Episode 2")
+
+#returns all posts for the last blog (sorted by title in the DESC order)
+posts = Post.where(blog_id: "5").order("title DESC")
+
+#destroys post3
+post3 = Post.find(3)
+post3.destroy
+
+#returns all blogs where id is less than 3
+Blog.where("id < 3")
+
+
+
+
+

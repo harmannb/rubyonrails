@@ -1,0 +1,73 @@
+
+
+<h3>Your Gold: </h3>
+
+  <p><%= session[:total] %><p>
+
+<h3>Activties: </h3>
+
+
+<form action="/rpgs/farm" method="post">
+
+<p>(earns 10-20 golds)</p>
+
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+<div>
+  <input type='submit' value='Find Gold' />
+</div>
+
+</form>
+
+
+
+<form action="/rpgs/cave" method="post">
+
+<p>(earns 5-10 golds)</p>
+
+
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+<div>
+  <input type='submit' value='Find Gold' />
+</div>
+
+</form>
+
+
+<form action="/rpgs/casino" method="post">
+
+<p>(earns 2-5 golds)</p>
+
+
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+<div>
+  <input type='submit' value='Find Gold' />
+</div>
+
+</form>
+
+
+
+<form action="/rpgs/house" method="post">
+
+<p>(earns/takes 0-50 golds)</p>
+
+<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+<div>
+  <input type='submit' value='Find Gold' />
+</div>
+
+</form>
+
+
+<p>You earned: <%= session[:farm] %> from the farm!</p>
+
+<p>You earned: <%= session[:cave] %> from the cave!</p>
+
+<p>You earned: <%= session[:casino] %> from the casino!</p>
+
+<p>You earned/lost: <%= session[:house] %> from the house!</p>
+
