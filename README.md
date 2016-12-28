@@ -1,2 +1,2 @@
 # rubyonrails
-Ruby/Ruby on Rails Coursework
+Ruby on Rails Coursework
